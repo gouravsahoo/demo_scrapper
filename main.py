@@ -143,8 +143,8 @@ def scrap(list_of_url):
 
 scrap(all_url)
 
-df = pd.read_csv("Women_saree.csv")
+df = pd.read_csv("data.csv")
 df = data.fillna(" ")
 df['title'] = df['title'] + " " + df["colour"].astype(str)
 df = df.drop(['Unnamed: 0', 'id', 'colour'], axis = 1)
-df.to_csv("Women_saree.csv")
+df.to_csv("data.csv")
