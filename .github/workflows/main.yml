@@ -28,13 +28,18 @@ jobs:
       run: python main.py
       
  # Add new files in data folder, commit along with other modified files, push
-    - name: Commit files
-      run: |
-        git config --local user.name actions-user
-        git config --local user.email "actions@github.com"
-        git add data/*
-        git commit -am "GH ACTION Headlines $(date)"
-        git push origin main
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update data/*
+      id: auto-commit-action
+    # - name: Commit files
+    #   run: |
+    #     git config --local user.name actions-user
+    #     git config --local user.email "actions@github.com"
+    #     git add data/*
+    #     git commit -am "GH ACTION Headlines $(date)"
+    #     git push origin main
       env:
         REPO_KEY: ${{secrets.GITHUB_TOKEN}}
         username: github-actions
