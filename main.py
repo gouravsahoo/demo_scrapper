@@ -142,8 +142,8 @@ def scrap(list_of_url):
                 # this counter will help get unique id no for every img and text data
                 counter += 1
 
-scrap(all_url)
-df = pd.read_csv('test.csv')
+# scrap(all_url)
+df = pd.read_csv(scrap(all_url))
 file_name = f"data/{date.today()}test.csv"
 # top_gainers_df = pd.DataFrame(top_gainers)
 
