@@ -134,7 +134,7 @@ def scrap(list_of_url):
                     # im_resize.save(f'{counter}.png') # save the image with same
                     # append all the details to df and save to csv, so we do not loss our data at any point
                     df = df.append({'id':counter,'brand':brand_ls,'title':title_ls,'colour':colour_ls,'sold_price':current_price_ls,'actual_price':actual_price_ls,'url':url_ls,'img':img_ls},ignore_index=True)
-                    # df.to_csv('Women_saree.csv')
+                    df.to_csv('Women_saree.csv')
     #                 print('done')
                 except: pass
     #                 print('not done')
@@ -143,8 +143,8 @@ def scrap(list_of_url):
 
 scrap(all_url)
 
-df = pd.read_csv("data.csv")
-df = data.fillna(" ")
-df['title'] = df['title'] + " " + df["colour"].astype(str)
-df = df.drop(['Unnamed: 0', 'id', 'colour'], axis = 1)
-df.to_csv("data.csv")
+# df = pd.read_csv("data.csv")
+# df = data.fillna(" ")
+# df['title'] = df['title'] + " " + df["colour"].astype(str)
+# df = df.drop(['Unnamed: 0', 'id', 'colour'], axis = 1)
+# df.to_csv("data.csv")
