@@ -1,9 +1,7 @@
 name: web scraper
 
 on: 
-  push:
-    branches: main
-    # - cron: '0 */2 * * *' # Runs every other hour
+  - cron: '* * * * *' # Runs every other hour
 
 jobs:
   build:
