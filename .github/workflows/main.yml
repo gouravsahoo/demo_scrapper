@@ -1,33 +1,41 @@
+# Hourly scraping
 name: web scraper
 
-on: 
-  - cron: '* * * * *' # Runs every other hour
+# Controls when the action will run.
+on:
+  push:
+    branches: main
+    # - cron:  '0 13 * * *'
 
-jobs:
-  build:
+
+jobs: 
+  autoscrape:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Load repo and install R
     steps:
+    - uses: actions/checkout@master
+    - uses: r-lib/actions/setup-r@master
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          
-      - name: Install python packages
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          
-      - name: Execute py script
-        run: python main.py
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update data.csv
-        id: auto-commit-action
-
+    # Set-up R
+    - name: Install packages
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    # Run py script
+    - name: Scrape
+      run: python main.py
       
+ # Add new files in data folder, commit along with other modified files, push
+    - name: Commit files
+      run: |
+        git config --local user.name actions-user
+        git config --local user.email "actions@github.com"
+        git add data/*
+        git commit -am "GH ACTION Headlines $(date)"
+        git push origin main
+      env:
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+        username: github-actions
+
