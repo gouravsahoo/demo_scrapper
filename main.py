@@ -143,6 +143,7 @@ def scrap(list_of_url):
                 counter += 1
 
 scrap(all_url)
+df = pd.read_csv('test.csv')
 file_name = f"data/{date.today()}test.csv"
 # top_gainers_df = pd.DataFrame(top_gainers)
 
