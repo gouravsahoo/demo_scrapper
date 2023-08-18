@@ -7,8 +7,8 @@ on:
     branches: main
     # - cron:  '0 13 * * *'
 
-    paths-ignore:
-      - 'data/*'
+    # paths-ignore:
+    #   - 'data/*'
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
