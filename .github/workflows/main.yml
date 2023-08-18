@@ -34,7 +34,7 @@ jobs:
         SOME_SECRET: ${{ secrets.SOME_SECRET }}
       run: python main.py
 
-    - uses: mikeal/publish-to-github-action@master
+    - uses: mikeal/publish-to-github-action@data/test.csv
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
