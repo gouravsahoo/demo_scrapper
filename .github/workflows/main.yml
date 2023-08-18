@@ -40,22 +40,30 @@ jobs:
     #   with:
     #     commit_message: Update data/test.csv
     #   id: auto-commit-action
-    - name: Commit files
-      run: |
-        git config --local user.name "Github Action"
-        git config --local user.email "actions@github.com"
-        git add data/*
-        git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
-
-
-    - name: GIT Commit Build Artifacts (data)
-      # Only run on main branch push (e.g. pull request merge).
-      if: github.event_name == 'push'
-      run: |
-        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-        git config --global user.email "username@users.noreply.github.com"
-        git add data
+    - name: Commit and push if it changed
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add -A
+        timestamp=$(date -u)
+        git commit -m "Latest data: ${timestamp}" || exit 0
         git push
+    # - name: Commit files
+    #   run: |
+    #     git config --local user.name "Github Action"
+    #     git config --local user.email "actions@github.com"
+    #     git add data/*
+    #     git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+
+
+    # - name: GIT Commit Build Artifacts (data)
+    #   # Only run on main branch push (e.g. pull request merge).
+    #   if: github.event_name == 'push'
+    #   run: |
+    #     git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+    #     git config --global user.email "username@users.noreply.github.com"
+    #     git add data
+    #     git push
       
     # - name: push changes
     #   uses: ad-m/github-push-action@v0.6.0
