@@ -11,8 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master # check out the repo this action is in, so that you have all prior data
-    - name: Build
-      run: npm install 
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' 
+    - name: Install python packages
+      run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
     - name: Scrape
       run: npm run main.py # actually run your npm script for scraping
       # env:
