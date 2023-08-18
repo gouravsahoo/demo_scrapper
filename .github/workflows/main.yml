@@ -6,34 +6,50 @@ on:
       - main
 
 jobs:
-  scrape-and-commit:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@master # check out the repo this action is in, so that you have all prior data
+    - name: Build
+      run: npm install python 3.9
+    - name: Scrape
+      run: npm run main.py # actually run your npm script for scraping
+      # env:
+      #   WHATEVER_TOKEN: ${{ secrets.YOU_WANT }}
+    - uses: mikeal/publish-to-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub sets this for you
+
+# jobs:
+#   scrape-and-commit:
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
       
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.x
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
 
-    - name: Run data scraping
-      run: python main.py
+#     - name: Run data scraping
+#       run: python main.py
 
-    - name: Create branch and commit
-      uses: EndBug/add-and-commit@v9
-      with:
-        add: 'data/test.csv'
-        default_author: github_actions
-        message: '[Misc] Update repository admin list documentation'
-        new_branch: scriptupdate/updated-admin-list
-        push: origin scriptupdate/updated-admin-list --set-upstream --force
+#     - name: Create branch and commit
+#       uses: EndBug/add-and-commit@v9
+#       with:
+#         add: 'data/test.csv'
+#         default_author: github_actions
+#         message: '[Misc] Update repository admin list documentation'
+#         new_branch: scriptupdate/updated-admin-list
+#         push: origin scriptupdate/updated-admin-list --set-upstream --force
       
     # - name: Commit changes
     #   run: |
