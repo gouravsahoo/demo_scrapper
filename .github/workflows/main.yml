@@ -34,9 +34,9 @@ jobs:
         SOME_SECRET: ${{ secrets.SOME_SECRET }}
       run: python main.py
 
-    - uses: mikeal/publish-to-github-action@data/test.csv
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - uses: mikeal/publish-to-github-action@data/test.csv
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
  # Add new files in data folder, commit along with other modified files, push
     # - name: Commit changes
