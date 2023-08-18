@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master # check out the repo this action is in, so that you have all prior data
     - name: Build
-      run: npm install python 3.9
+      run: npm install 
     - name: Scrape
       run: npm run main.py # actually run your npm script for scraping
       # env:
