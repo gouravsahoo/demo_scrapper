@@ -1,4 +1,4 @@
-library(rvest)
+library(tidyverse)
 library(tibble)
 
 # Define the URL
