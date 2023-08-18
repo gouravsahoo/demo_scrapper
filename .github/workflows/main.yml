@@ -25,16 +25,25 @@ jobs:
 
     - name: Run data scraping
       run: python main.py
+
+    - name: Create branch and commit
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: 'data/test.csv'
+        default_author: github_actions
+        message: '[Misc] Update repository admin list documentation'
+        new_branch: scriptupdate/updated-admin-list
+        push: origin scriptupdate/updated-admin-list --set-upstream --force
       
-    - name: Commit changes
-      run: |
-        git config --local user.name actions-user
-        git config --local user.email "actions@github.com"
-        git add data/*  # Adjust the path accordingly
-        git commit -m "Auto-generated data update"
-        git push origin main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Commit changes
+    #   run: |
+    #     git config --local user.name actions-user
+    #     git config --local user.email "actions@github.com"
+    #     git add data/*  
+    #     git commit -m "Auto-generated data update"
+    #     git push origin main
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
