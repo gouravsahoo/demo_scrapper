@@ -1,197 +1,197 @@
-name: data-scraping
+# name: data-scraping
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master # check out the repo this action is in, so that you have all prior data
-    - name: Setup python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9' 
-    - name: Install python packages
-      run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-    - name: Execute py script
-      run: python main.py # actually run your npm script for scraping
-      # env:
-      #   WHATEVER_TOKEN: ${{ secrets.YOU_WANT }}
-    - uses: mikeal/publish-to-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub sets this for you
+# on:
+#   push:
+#     branches:
+#       - main
 
 # jobs:
-#   scrape-and-commit:
+#   build:
+#     name: Build
 #     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@master # check out the repo this action is in, so that you have all prior data
+#     - name: Setup python
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: '3.9' 
+#     - name: Install python packages
+#       run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
+
+#     - name: Execute py script
+#       run: python main.py # actually run your npm script for scraping
+#       # env:
+#       #   WHATEVER_TOKEN: ${{ secrets.YOU_WANT }}
+#     - uses: mikeal/publish-to-github-action@master
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub sets this for you
+
+# # jobs:
+# #   scrape-and-commit:
+# #     runs-on: ubuntu-latest
     
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v2
+# #     steps:
+# #     - name: Checkout repository
+# #       uses: actions/checkout@v2
       
-#     - name: Set up Python
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: 3.x
+# #     - name: Set up Python
+# #       uses: actions/setup-python@v2
+# #       with:
+# #         python-version: 3.x
 
-#     - name: Install dependencies
-#       run: |
-#         python -m pip install --upgrade pip
-#         pip install -r requirements.txt
+# #     - name: Install dependencies
+# #       run: |
+# #         python -m pip install --upgrade pip
+# #         pip install -r requirements.txt
 
-#     - name: Run data scraping
-#       run: python main.py
+# #     - name: Run data scraping
+# #       run: python main.py
 
-#     - name: Create branch and commit
-#       uses: EndBug/add-and-commit@v9
-#       with:
-#         add: 'data/test.csv'
-#         default_author: github_actions
-#         message: '[Misc] Update repository admin list documentation'
-#         new_branch: scriptupdate/updated-admin-list
-#         push: origin scriptupdate/updated-admin-list --set-upstream --force
+# #     - name: Create branch and commit
+# #       uses: EndBug/add-and-commit@v9
+# #       with:
+# #         add: 'data/test.csv'
+# #         default_author: github_actions
+# #         message: '[Misc] Update repository admin list documentation'
+# #         new_branch: scriptupdate/updated-admin-list
+# #         push: origin scriptupdate/updated-admin-list --set-upstream --force
       
-    # - name: Commit changes
-    #   run: |
-    #     git config --local user.name actions-user
-    #     git config --local user.email "actions@github.com"
-    #     git add data/*  
-    #     git commit -m "Auto-generated data update"
-    #     git push origin main
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     # - name: Commit changes
+#     #   run: |
+#     #     git config --local user.name actions-user
+#     #     git config --local user.email "actions@github.com"
+#     #     git add data/*  
+#     #     git commit -m "Auto-generated data update"
+#     #     git push origin main
+#     #   env:
+#     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
-# # Hourly scraping
-# name: nifty50scrape
+# # # Hourly scraping
+# # name: nifty50scrape
 
-# # Controls when the action will run.
-# on:
-#   push:
-#      branches:  main
+# # # Controls when the action will run.
+# # on:
+# #   push:
+# #      branches:  main
 
 
-# jobs: 
-#   autoscrape:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
+# # jobs: 
+# #   autoscrape:
+# #     # The type of runner that the job will run on
+# #     runs-on: ubuntu-latest
 
-#     # Load repo and install R
-#     steps:
-#     - uses: actions/checkout@v3
-#     - uses: r-lib/actions/setup-r@v2
+# #     # Load repo and install R
+# #     steps:
+# #     - uses: actions/checkout@v3
+# #     - uses: r-lib/actions/setup-r@v2
 
-#     # Set-up R
-#     - name: Install packages
-#       run: |
-#         R -e 'install.packages("tidyverse")'
-#         R -e 'install.packages("janitor")'
-#         R -e 'install.packages("rvest")'
-#         R -e 'install.packages("tibble")'
-#     # Run R script
-#     - name: Scrape
-#       run: Rscript main.R
+# #     # Set-up R
+# #     - name: Install packages
+# #       run: |
+# #         R -e 'install.packages("tidyverse")'
+# #         R -e 'install.packages("janitor")'
+# #         R -e 'install.packages("rvest")'
+# #         R -e 'install.packages("tibble")'
+# #     # Run R script
+# #     - name: Scrape
+# #       run: Rscript main.R
+      
+# #  # Add new files in data folder, commit along with other modified files, push
+# #     - name: Commit files
+# #       run: |
+# #         git config --local user.name actions-user
+# #         git config --local user.email "actions@github.com"
+# #         git add data/*
+# #         git commit -am "GH ACTION Headlines $(date)"
+# #         git push origin main
+# #       env:
+# #         REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+# #         username: github-actions
+
+
+# # # Hourly scraping
+# # name: web scraper
+
+# # # Controls when the action will run.
+# # on:
+# #   push:
+# #     branches: main
+# #     # - cron:  '0 13 * * *'
+
+# #     # paths-ignore:
+# #     #   - 'data/*'
+
+# # env:
+# #   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  
+# # jobs: 
+# #   autoscrape:
+# #     # The type of runner that the job will run on
+# #     runs-on: ubuntu-latest
+
+# #     # Load repo and install python
+# #     steps:
+# #     - uses: actions/checkout@main
+    
+
+# #     # Set-up python
+# #     - name: Install packages
+# #       run: |
+# #         python -m pip install --upgrade pip
+# #         pip install -r requirements.txt
+# #     # Run py script
+# #     - name: Scrape
+# #       env: 
+# #         SOME_SECRET: ${{ secrets.SOME_SECRET }}
+# #       run: python main.py
+
+#     # - uses: mikeal/publish-to-github-action@data/test.csv
+#     #   env:
+#     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
 #  # Add new files in data folder, commit along with other modified files, push
-#     - name: Commit files
-#       run: |
-#         git config --local user.name actions-user
-#         git config --local user.email "actions@github.com"
-#         git add data/*
-#         git commit -am "GH ACTION Headlines $(date)"
-#         git push origin main
-#       env:
-#         REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-#         username: github-actions
-
-
-# # Hourly scraping
-# name: web scraper
-
-# # Controls when the action will run.
-# on:
-#   push:
-#     branches: main
-#     # - cron:  '0 13 * * *'
-
-#     # paths-ignore:
-#     #   - 'data/*'
-
-# env:
-#   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  
-# jobs: 
-#   autoscrape:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
-
-#     # Load repo and install python
-#     steps:
-#     - uses: actions/checkout@main
-    
-
-#     # Set-up python
-#     - name: Install packages
-#       run: |
-#         python -m pip install --upgrade pip
-#         pip install -r requirements.txt
-#     # Run py script
-#     - name: Scrape
-#       env: 
-#         SOME_SECRET: ${{ secrets.SOME_SECRET }}
-#       run: python main.py
-
-    # - uses: mikeal/publish-to-github-action@data/test.csv
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
- # Add new files in data folder, commit along with other modified files, push
-    # - name: Commit changes
-    #   uses: stefanzweifel/git-auto-commit-action@v4
-    #   with:
-    #     commit_message: Update data/test.csv
-    #   id: auto-commit-action
+#     # - name: Commit changes
+#     #   uses: stefanzweifel/git-auto-commit-action@v4
+#     #   with:
+#     #     commit_message: Update data/test.csv
+#     #   id: auto-commit-action
    
-    # - name: Commit and push if it changed
-    #   run: |-
-    #     git config user.name "Automated"
-    #     git config user.email "actions@users.noreply.github.com"
-    #     git add -A
-    #     timestamp=$(date -u)
-    #     git commit -m "Latest data: ${timestamp}" || exit 0
-    #     git push
+#     # - name: Commit and push if it changed
+#     #   run: |-
+#     #     git config user.name "Automated"
+#     #     git config user.email "actions@users.noreply.github.com"
+#     #     git add -A
+#     #     timestamp=$(date -u)
+#     #     git commit -m "Latest data: ${timestamp}" || exit 0
+#     #     git push
    
-    # - name: Commit files
-    #   run: |
-    #     git config --local user.name "Github Action"
-    #     git config --local user.email "actions@github.com"
-    #     git add data/*
-    #     git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+#     # - name: Commit files
+#     #   run: |
+#     #     git config --local user.name "Github Action"
+#     #     git config --local user.email "actions@github.com"
+#     #     git add data/*
+#     #     git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
 
 
-    # - name: GIT Commit Build Artifacts (data)
-    #   # Only run on main branch push (e.g. pull request merge).
-    #   if: github.event_name == 'push'
-    #   run: |
-    #     git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-    #     git config --global user.email "username@users.noreply.github.com"
-    #     git add data
-    #     git push
+#     # - name: GIT Commit Build Artifacts (data)
+#     #   # Only run on main branch push (e.g. pull request merge).
+#     #   if: github.event_name == 'push'
+#     #   run: |
+#     #     git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+#     #     git config --global user.email "username@users.noreply.github.com"
+#     #     git add data
+#     #     git push
       
-    # - name: push changes
-    #   uses: ad-m/github-push-action@v0.6.0
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     branch: main 
-      # env:
-      #   REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-      #   username: github-actions
+#     # - name: push changes
+#     #   uses: ad-m/github-push-action@v0.6.0
+#     #   with:
+#     #     github_token: ${{ secrets.GITHUB_TOKEN }}
+#     #     branch: main 
+#       # env:
+#       #   REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+#       #   username: github-actions
 
